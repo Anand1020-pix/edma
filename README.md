@@ -115,13 +115,6 @@ uvicorn app.main:app --reload
 - **Foreign key violation on expenses**: verify the `user_id` exists before posting an expense.
 - **asyncpg driver errors**: confirm the `DB_URL` scheme uses `postgresql+asyncpg` and that `asyncpg` is installed.
 
-## Next Steps
 
-- Implement authentication and authorization
-- Add pagination for expense listings
-- Introduce Alembic migrations for production-grade schema management
-- Containerize with Docker for easier deployment
-
----
 
 Happy budgeting!
