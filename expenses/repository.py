@@ -1,5 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
+from sqlalchemy.exc import IntegrityError
 from app.model import Expense, User
 
 class ExpenseRepository:
@@ -7,7 +8,11 @@ class ExpenseRepository:
     async def create_expense(self, db: AsyncSession, data):
         expense = Expense(**data)
         db.add(expense)
-        await db.commit()
+        try:
+            await db.commit()
+        except IntegrityError:
+            await db.rollback()
+            raise
         await db.refresh(expense)
         return expense
 
